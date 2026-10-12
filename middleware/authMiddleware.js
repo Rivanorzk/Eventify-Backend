@@ -39,11 +39,9 @@ const authMiddleware = async (req, res, next) => {
         message: "Akun telah dinonaktifkan",
       });
     }
-    
-    if (user.status !== "online") {
-      await authRepository.setStatus(user.id, "online");
+
+      await authRepository.markOnline(user.id);
       user.status = "online";
-    }
 
     req.user = user;
 
