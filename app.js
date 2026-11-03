@@ -33,8 +33,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://concert-system-frontend-gghvac19v-rivanos-projects.vercel.app",
-      "https://bullseye-attribute-glacier.ngrok-free.dev",
+      "https://concert-system-frontend-beryl.vercel.app",
       "http://localhost:8081"
     ],
     credentials: true,
