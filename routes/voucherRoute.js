@@ -80,7 +80,7 @@ router.put(
 router.delete(
   "/:id",
   authMiddleware,
-  checkRole("superadmin"),
+  checkRole("admin", "superadmin"),
   deleteVoucher
 );
 
