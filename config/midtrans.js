@@ -31,6 +31,7 @@ const core = new midtransClient.CoreApi({
  * @param {Object} [params.customerDetails]
  * @param {number} [params.expiryMinutes] - batas waktu bayar di Midtrans (menit). Harus selaras dengan orders.expired_at supaya notifikasi "expire" masuk tepat waktu
  * @param {string} params.finishRedirectUrl - halaman yang dituju setelah customer selesai/batal/pending di halaman Midtrans
+ *  * @param {string} [params.expiryStartTime] - waktu mulai hitung batas bayar, format "yyyy-MM-dd HH:mm:ss +0700". Dipakai supaya Midtrans dan orders.expired_at dihitung dari titik yang sama
  */
 export async function createTransaction({
     orderId,
@@ -39,6 +40,7 @@ export async function createTransaction({
     customerDetails,
     finishRedirectUrl,
     expiryMinutes,
+    expiryStartTime,
 }) {
     if (!process.env.MIDTRANS_SERVER_KEY) {
         throw new Error("MIDTRANS_SERVER_KEY belum diatur di .env");
@@ -57,7 +59,11 @@ export async function createTransaction({
                 : undefined,
         customer_details: customerDetails || undefined,
         expiry: expiryMinutes
-            ? { unit: "minutes", duration: expiryMinutes }
+            ? { 
+                start_time: expiryStartTime,
+                unit: "minutes", 
+                duration: expiryMinutes,
+            }
             : undefined,
         callbacks: {
             finish: finishRedirectUrl,
