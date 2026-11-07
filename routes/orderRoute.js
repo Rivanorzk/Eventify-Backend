@@ -6,7 +6,6 @@ import validate from "../middleware/validateMiddleware.js";
 import {
     createOrderSchema,
     updateOrderStatusSchema,
-    refundOrderSchema,
 } from "../middleware/validators/orderValidator.js";
 import {
     cancelOrder,
@@ -16,7 +15,6 @@ import {
     getOrders,
     resendOrderTicket,
     updateOrderStatus,
-    refundOrder,
 } from "../controllers/orderController.js";
 
 const router = express.Router();
@@ -37,14 +35,6 @@ router.put(
     checkRole("admin", "superadmin"),
     validate(updateOrderStatusSchema),
     updateOrderStatus
-);
-
-router.put(
-    "/refund/:id",
-    authMiddleware,
-    checkRole("admin", "superadmin"),
-    validate(refundOrderSchema),
-    refundOrder
 );
 
 // ─── Customer ──────────────────────────────────────────────────
