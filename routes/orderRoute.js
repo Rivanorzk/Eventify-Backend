@@ -5,7 +5,6 @@ import checkRole from "../middleware/checkRole.js";
 import validate from "../middleware/validateMiddleware.js";
 import {
     createOrderSchema,
-    updateOrderStatusSchema,
 } from "../middleware/validators/orderValidator.js";
 import {
     cancelOrder,
@@ -13,29 +12,12 @@ import {
     getMyOrders,
     getOrderById,
     getOrders,
-    resendOrderTicket,
-    updateOrderStatus,
 } from "../controllers/orderController.js";
 
 const router = express.Router();
 
 // ─── Admin / Superadmin ────────────────────────────────────────
 router.get("/", authMiddleware, checkRole("admin", "superadmin"), getOrders);
-
-router.put(
-    "/resend-ticket/:id",
-    authMiddleware,
-    checkRole("admin", "superadmin"),
-    resendOrderTicket
-);
-
-router.put(
-    "/status/:id",
-    authMiddleware,
-    checkRole("admin", "superadmin"),
-    validate(updateOrderStatusSchema),
-    updateOrderStatus
-);
 
 // ─── Customer ──────────────────────────────────────────────────
 router.get("/my-orders", authMiddleware, checkRole("customer"), getMyOrders);
