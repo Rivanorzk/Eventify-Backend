@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt"
 
-const password = "vano1234"
+const password = "Nahwan1946"
 
 bcrypt.hash(password, 10).then(console.log)
