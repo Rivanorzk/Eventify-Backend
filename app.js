@@ -1,8 +1,7 @@
-import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import db from "./config/database.js";
-// import dotenv from "dotenv";
+import dotenv from "dotenv";
 import authRoutes from "./routes/authRoute.js";
 import categoryRoutes from "./routes/categoryRoute.js";
 import userRoutes from "./routes/userRoute.js";
@@ -28,7 +27,7 @@ import { startScheduler } from "./lib/utils/scheduler.js";
 import { requestMetrics } from "./lib/utils/requestMetrics.js";
 import { auditTrail } from "./middleware/auditTrail.js";
 
-// dotenv.config();
+dotenv.config();
 const app = express();
 
 app.use(
