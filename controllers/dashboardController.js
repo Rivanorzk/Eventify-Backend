@@ -68,3 +68,14 @@ export const getSystemStatus = asyncHandler(async (req, res) => {
     return success(res, status);
 
 });
+
+// GET /dashboard/organizers — halaman app/superadmin/organizers/page.js
+export const getOrganizerList = asyncHandler(async (req, res) => {
+
+    const period = req.query.period === "30d" ? "30d" : "month";
+
+    const data = await dashboardService.getOrganizerList(period);
+
+    return success(res, data);
+
+});

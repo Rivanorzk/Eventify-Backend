@@ -29,3 +29,16 @@ export const updateStatusSchema = Joi.object({
     status: Joi.string().valid("online", "offline").required(),
     is_active: Joi.boolean().required()
 });
+
+
+// Superadmin membuat akun staf. "admin" = organizer.
+export const createUserSchema = Joi.object({
+    username: Joi.string().trim().min(3).required(),
+    email: Joi.string().trim().email().required(),
+    password: Joi.string().min(8).required()
+        .messages({
+            'string.min': 'Password minimal 8 karakter'
+        }),
+    phone: Joi.string().trim().required(),
+    role: Joi.string().valid("admin", "superadmin").default("admin")
+});

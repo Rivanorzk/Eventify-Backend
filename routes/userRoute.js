@@ -6,11 +6,13 @@ import {
   updateProfileSchema,
   updatePasswordSchema,
   updateRoleSchema,
-  updateStatusSchema
+  updateStatusSchema,
+  createUserSchema
 } from "../middleware/validators/userValidator.js";
 
 import {
   getUsers,
+  createUser,
   getUserById,
   updateRole,
   updateStatus,
@@ -25,6 +27,7 @@ import { uploadAvatar, uploadCover } from "../controllers/userController.js";
 const router = express.Router();
 
 router.get("/", authMiddleware, checkRole("admin", "superadmin"), getUsers);
+router.post("/", authMiddleware, checkRole("superadmin"), validate(createUserSchema), createUser);
 router.get("/me", authMiddleware, getMyProfile);
 router.put("/me", authMiddleware, validate(updateProfileSchema), updateMyProfile);
 router.put("/me/password", authMiddleware, validate(updatePasswordSchema), updateMyPassword);

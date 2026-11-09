@@ -16,6 +16,26 @@ export const getUsers = asyncHandler(async (req, res) => {
 
 });
 
+export const createUser = asyncHandler(async (req, res) => {
+
+    const user = await userService.createUser({
+        ...req.body,
+        role: req.body.role || "admin",
+    });
+
+    await auditLogService.logActivity({
+        actor: req.user,
+        req,
+        action: "CREATE_USER",
+        entityType: "user",
+        entityId: user.id,
+        description: `Membuat akun ${user.role} "${user.username}" (${user.email})`,
+    });
+
+    return success(res, user, "Akun berhasil dibuat", 201);
+
+});
+
 export const getUserById = asyncHandler(async (req, res) => {
 
     if (
