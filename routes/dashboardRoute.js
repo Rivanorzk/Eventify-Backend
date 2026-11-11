@@ -36,7 +36,7 @@ router.get(
 );
 
 router.get(
-    "/admin",
+    "/superadmin/admin",
     authMiddleware,
     checkRole("superadmin"),
     getOrganizerList
