@@ -55,3 +55,54 @@ export const logout = asyncHandler(async (req, res) => {
     );
 
 });
+
+export const forgotPassword = asyncHandler(async (req, res) => {
+
+    const data =
+        await authService.verifyForgotPassword(req.body);
+
+    return success(
+        res,
+        data,
+        "Verifikasi berhasil, silakan atur password baru"
+    );
+
+});
+
+export const resetPassword = asyncHandler(async (req, res) => {
+
+    await authService.resetPassword(req.body);
+
+    return success(
+        res,
+        null,
+        "Password berhasil diubah, silakan login"
+    );
+
+});
+
+export const requestOtp = asyncHandler(async (req, res) => {
+
+    const data =
+        await authService.requestResetOtp(req.body);
+
+    return success(
+        res,
+        data,
+        "Jika email terdaftar, kode OTP telah dikirim"
+    );
+
+});
+
+export const verifyOtp = asyncHandler(async (req, res) => {
+
+    const data =
+        await authService.verifyResetOtp(req.body);
+
+    return success(
+        res,
+        data,
+        "OTP benar, silakan atur password baru"
+    );
+
+});
